@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#0b5ed7">
+
+<title>Salaire Net Mada</title>
+
+<meta name="description"
+content="Calculateur de salaire net à Madagascar avec CNaPS, OSTIE et IRSA 2026.">
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6fa;
+    color: #222;
+}
+
+.header {
+    background: linear-gradient(135deg, #0b5ed7, #084298);
+    color: white;
+    text-align: center;
+    padding: 25px 15px 30px;
+}
+
+.logo {
+    font-size: 42px;
+}
+
+.header h1 {
+    margin: 5px 0 0;
+    font-size: 29px;
+}
+
+.header p {
+    margin: 8px 0 0;
+    font-size: 14px;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: -15px auto 30px;
+    padding: 0 15px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #0b5ed7;
+}
+
+.card h3 {
+    color: #333;
+    margin-top: 25px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccd3da;
+    border-radius: 10px;
+    font-size: 17px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #0b5ed7;
+    box-shadow: 0 0 0 3px rgba(11,94,215,0.12);
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #0b5ed7;
+    color: white;
+}
+
+.btn-secondary {
+    background: #e9ecef;
+    color: #333;
+    margin-top: 10px;
+}
+
+.btn-print {
+    background: #198754;
+    color: white;
+    margin-top: 10px;
+}
+
+.btn-payment {
+    background: #ffc107;
+    color: #222;
+    margin-top: 10px;
+}
+
+#resultat {
+    display: none;
+}
+
+.net-box {
+    background: #e8f7ee;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.net-label {
+    font-size: 14px;
+    color: #555;
+}
+
+.net-value {
+    font-size: 30px;
+    font-weight: bold;
+    color: #198754;
+    margin-top: 8px;
+}
+
+.ligne {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid #edf0f2;
+}
+
+.ligne span {
+    color: #555;
+}
+
+.ligne strong {
+    text-align: right;
+}
+
+.total {
+    font-weight: bold;
+    background: #f7f9fb;
+    padding: 13px;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.info-box {
+    background: #eef5ff;
+    border-left: 4px solid #0b5ed7;
+    padding: 14px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.warning-box {
+    background: #fff8e6;
+    border-left: 4px solid #ffc107;
+    padding: 14px;
+    margin-top: 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: #777;
+    font-size: 12px;
+}
+
+@media (max-width: 400px) {
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .net-value {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+}
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .header {
+        background: white;
+        color: black;
+    }
+
+    .card:first-child,
+    .btn-secondary,
+    .btn-print,
+    .btn-payment,
+    footer {
+        display: none !important;
+    }
+
+    #resultat {
+        display: block !important;
+        box-shadow: none;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">💰</div>
+
+    <h1>Salaire Net Mada</h1>
+
+    <p>
+        Calculateur de salaire net à Madagascar
+    </p>
+
+</header>
+
+
+<main class="container">
+
+
+<section class="card">
+
+    <h2>🧮 Votre rémunération</h2>
+
+
+    <div class="form-group">
+
+        <label for="salaire">
+            Salaire de base
+        </label>
+
+        <input
+            type="number"
+            id="salaire"
+            min="0"
+            inputmode="numeric"
+            placeholder="Exemple : 800000"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="prime">
+            Prime
+        </label>
+
+        <input
+            type="number"
+            id="prime"
+            min="0"
+            inputmode="numeric"
+            placeholder="Exemple : 100000"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="heures">
+            Heures supplémentaires
+        </label>
+
+        <input
+            type="number"
+            id="heures"
+            min="0"
+            inputmode="numeric"
+            placeholder="Exemple : 50000"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="indemnites">
+            Indemnités
+        </label>
+
+        <input
+            type="number"
+            id="indemnites"
+            min="0"
+            inputmode="numeric"
+            placeholder="Exemple : 25000"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="autres">
+            Autres gains imposables
+        </label>
+
+        <input
+            type="number"
+            id="autres"
+            min="0"
+            inputmode="numeric"
+            placeholder="Exemple : 25000"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="charges">
+            Nombre de personnes à charge
+        </label>
+
+        <input
+            type="number"
+            id="charges"
+            min="0"
+            step="1"
+            value="0"
+            inputmode="numeric"
+            placeholder="0"
+        >
+
+    </div>
+
+
+    <button
+        class="btn-primary"
+        onclick="calculerSalaire()">
+
+        💰 Calculer mon salaire net
+
+    </button>
+
+
+    <button
+        class="btn-secondary"
+        onclick="effacer()">
+
+        Effacer
+
+    </button>
+
+</section>
+
+
+
+<section
+    class="card"
+    id="resultat">
+
+
+    <h2>📊 Résultat du calcul</h2>
+
+
+    <div class="net-box">
+
+        <div class="net-label">
+            SALAIRE NET ESTIMÉ
+        </div>
+
+        <div
+            class="net-value"
+            id="net">
+
+            0 Ar
+
+        </div>
+
+    </div>
+
+
+
+    <h3>💵 Gains</h3>
+
+
+    <div class="ligne">
+
+        <span>Salaire de base</span>
+
+        <strong id="resultSalaire">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne">
+
+        <span>Prime</span>
+
+        <strong id="resultPrime">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne">
+
+        <span>Heures supplémentaires</span>
+
+        <strong id="resultHeures">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne">
+
+        <span>Indemnités</span>
+
+        <strong id="resultIndemnites">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne">
+
+        <span>Autres gains imposables</span>
+
+        <strong id="resultAutres">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne total">
+
+        <span>TOTAL BRUT</span>
+
+        <strong id="totalGains">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+
+    <h3>📉 Cotisations salariales</h3>
+
+
+    <div class="ligne">
+
+        <span>
+            CNaPS — 1 %
+        </span>
+
+        <strong id="cnaps">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne">
+
+        <span>
+            OSTIE — 1 %
+        </span>
+
+        <strong id="ostie">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne total">
+
+        <span>
+            Total cotisations
+        </span>
+
+        <strong id="cotisations">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+
+    <h3>🧾 IRSA</h3>
+
+
+    <div class="ligne">
+
+        <span>
+            Base imposable IRSA
+        </span>
+
+        <strong id="baseIRSA">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne">
+
+        <span>
+            IRSA avant réduction
+        </span>
+
+        <strong id="irsaAvant">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne">
+
+        <span>
+            Personnes à charge
+        </span>
+
+        <strong id="nbCharges">
+            0
+        </strong>
+
+    </div>
+
+
+    <div class="ligne">
+
+        <span>
+            Réduction personnes à charge
+        </span>
+
+        <strong id="reduction">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne total">
+
+        <span>
+            IRSA à payer
+        </span>
+
+        <strong id="irsa">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+
+    <div class="ligne total">
+
+        <span>
+            TOTAL DES RETENUES
+        </span>
+
+        <strong id="retenues">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+    <div class="ligne total">
+
+        <span>
+            SALAIRE NET
+        </span>
+
+        <strong id="net2">
+            0 Ar
+        </strong>
+
+    </div>
+
+
+
+    <div class="info-box">
+
+        <strong>
+            📌 Barème IRSA 2026 utilisé
+        </strong>
+
+        <br><br>
+
+        0 à 350 000 Ar :
+        <strong>0 %</strong>
+
+        <br>
+
+        350 001 à 400 000 Ar :
+        <strong>5 %</strong>
+
+        <br>
+
+        400 001 à 500 000 Ar :
+        <strong>10 %</strong>
+
+        <br>
+
+        500 001 à 600 000 Ar :
+        <strong>15 %</strong>
+
+        <br>
+
+        600 001 à 4 000 000 Ar :
+        <strong>20 %</strong>
+
+        <br>
+
+        Au-delà de 4 000 000 Ar :
+        <strong>25 %</strong>
+
+        <br><br>
+
+        La base IRSA est calculée après
+        déduction des cotisations salariales
+        CNaPS et OSTIE, puis arrondie à la
+        centaine d'Ariary inférieure.
+
+        <br><br>
+
+        Réduction :
+        <strong>2 000 Ar par personne à charge.</strong>
+
+    </div>
+
+
+    <div class="warning-box">
+
+        <strong>⚠️ Important</strong>
+
+        <br><br>
+
+        Ce simulateur est destiné à fournir
+        une estimation du salaire net.
+
+        <br><br>
+
+        Certaines rémunérations ou indemnités
+        peuvent bénéficier de traitements
+        fiscaux ou sociaux particuliers.
+        Le bulletin de paie réel peut donc
+        différer du résultat du simulateur.
+
+    </div>
+
+
+    <button
+        class="btn-print"
+        onclick="window.print()">
+
+        🖨️ Imprimer / Enregistrer le résultat
+
+    </button>
+
+
+    <button
+        class="btn-payment"
+        onclick="ouvrirPaiement()">
+
+        🔓 Obtenir le résultat complet — 2 000 Ar
+
+    </button>
+
+
+    <button
+        class="btn-secondary"
+        onclick="nouveauCalcul()">
+
+        🔄 Nouveau calcul
+
+    </button>
+
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <strong>Salaire Net Mada</strong>
+
+    <br><br>
+
+    Calculateur de salaire à Madagascar
+
+    <br>
+
+    © 2026 Salaire Net Mada
+
+</footer>
+
+
+
+<script>
+
+
+/* =====================================
+   CONSTANTES 2026
+   ===================================== */
+
+const PLAFOND_COTISATION = 2101440;
+
+const TAUX_CNAPS = 0.01;
+
+const TAUX_OSTIE = 0.01;
+
+const REDUCTION_CHARGE = 2000;
+
+const MINIMUM_IRSA = 3000;
+
+
+
+/* =====================================
+   FORMAT ARIARY
+   ===================================== */
+
+function formatAr(nombre) {
+
+    return Math.round(nombre)
+        .toLocaleString("fr-FR")
+        + " Ar";
+
+}
+
+
+
+/* =====================================
+   LIRE UN CHAMP
+   ===================================== */
+
+function valeur(id) {
+
+    const element =
+        document.getElementById(id);
+
+    const nombre =
+        parseFloat(element.value);
+
+    if (
+        isNaN(nombre)
+        ||
+        nombre < 0
+    ) {
+
+        return 0;
+
+    }
+
+    return nombre;
+
+}
+
+
+
+/* =====================================
+   CALCUL IRSA PROGRESSIF
+   ===================================== */
+
+function calculerIRSA(base) {
+
+    let impot = 0;
+
+
+    if (base > 350000) {
+
+        impot +=
+            (
+                Math.min(base, 400000)
+                -
+                350000
+            ) * 0.05;
+
+    }
+
+
+    if (base > 400000) {
+
+        impot +=
+            (
+                Math.min(base, 500000)
+                -
+                400000
+            ) * 0.10;
+
+    }
+
+
+    if (base > 500000) {
+
+        impot +=
+            (
+                Math.min(base, 600000)
+                -
+                500000
+            ) * 0.15;
+
+    }
+
+
+    if (base > 600000) {
+
+        impot +=
+            (
+                Math.min(base, 4000000)
+                -
+                600000
+            ) * 0.20;
+
+    }
+
+
+    if (base > 4000000) {
+
+        impot +=
+            (
+                base
+                -
+                4000000
+            ) * 0.25;
+
+    }
+
+
+    return impot;
+
+}
+
+
+
+/* =====================================
+   CALCUL PRINCIPAL
+   ===================================== */
+
+function calculerSalaire() {
+
+
+    const salaire =
+        valeur("salaire");
+
+    const prime =
+        valeur("prime");
+
+    const heures =
+        valeur("heures");
+
+    const indemnites =
+        valeur("indemnites");
+
+    const autres =
+        valeur("autres");
+
+    let charges =
+        parseInt(
+            document.getElementById(
+                "charges"
+            ).value
+        );
+
+
+    if (
+        isNaN(charges)
+        ||
+        charges < 0
+    ) {
+
+        charges = 0;
+
+    }
+
+
+    if (
+        salaire <= 0
+        &&
+        prime <= 0
+        &&
+        heures <= 0
+        &&
+        indemnites <= 0
+        &&
+        autres <= 0
+    ) {
+
+        alert(
+            "Veuillez saisir au moins un montant."
+        );
+
+        return;
+
+    }
+
+
+
+    const brut =
+        salaire
+        +
+        prime
+        +
+        heures
+        +
+        indemnites
+        +
+        autres;
+
+
+
+    const baseCotisation =
+        Math.min(
+            brut,
+            PLAFOND_COTISATION
+        );
+
+
+    const cnaps =
+        baseCotisation
+        *
+        TAUX_CNAPS;
+
+
+    const ostie =
+        baseCotisation
+        *
+        TAUX_OSTIE;
+
+
+    const cotisations =
+        cnaps
+        +
+        ostie;
+
+
+
+    let baseIRSA =
+        brut
+        -
+        cotisations;
+
+
+    baseIRSA =
+        Math.floor(
+            baseIRSA / 100
+        ) * 100;
+
+
+    if (baseIRSA < 0) {
+
+        baseIRSA = 0;
+
+    }
+
+
+
+    const irsaAvant =
+        calculerIRSA(baseIRSA);
+
+
+
+    const reduction =
+        charges
+        *
+        REDUCTION_CHARGE;
+
+
+
+    let irsa =
+        irsaAvant
+        -
+        reduction;
+
+
+    if (irsa < 0) {
+
+        irsa = 0;
+
+    }
+
+
+
+    if (
+        irsa > 0
+        &&
+        irsa < MINIMUM_IRSA
+    ) {
+
+        irsa =
+            MINIMUM_IRSA;
+
+    }
+
+
+
+    const retenues =
+        cotisations
+        +
+        irsa;
+
+
+
+    const net =
+        brut
+        -
+        retenues;
+
+
+
+    document.getElementById(
+        "resultSalaire"
+    ).textContent =
+        formatAr(salaire);
+
+
+    document.getElementById(
+        "resultPrime"
+    ).textContent =
+        formatAr(prime);
+
+
+    document.getElementById(
+        "resultHeures"
+    ).textContent =
+        formatAr(heures);
+
+
+    document.getElementById(
+        "resultIndemnites"
+    ).textContent =
+        formatAr(indemnites);
+
+
+    document.getElementById(
+        "resultAutres"
+    ).textContent =
+        formatAr(autres);
+
+
+    document.getElementById(
+        "totalGains"
+    ).textContent =
+        formatAr(brut);
+
+
+
+    document.getElementById(
+        "cnaps"
+    ).textContent =
+        formatAr(cnaps);
+
+
+    document.getElementById(
+        "ostie"
+    ).textContent =
+        formatAr(ostie);
+
+
+    document.getElementById(
+        "cotisations"
+    ).textContent =
+        formatAr(cotisations);
+
+
+
+    document.getElementById(
+        "baseIRSA"
+    ).textContent =
+        formatAr(baseIRSA);
+
+
+    document.getElementById(
+        "irsaAvant"
+    ).textContent =
+        formatAr(irsaAvant);
+
+
+    document.getElementById(
+        "nbCharges"
+    ).textContent =
+        charges;
+
+
+    document.getElementById(
+        "reduction"
+    ).textContent =
+        formatAr(reduction);
+
+
+    document.getElementById(
+        "irsa"
+    ).textContent =
+        formatAr(irsa);
+
+
+
+    document.getElementById(
+        "retenues"
+    ).textContent =
+        formatAr(retenues);
+
+
+    document.getElementById(
+        "net"
+    ).textContent =
+        formatAr(net);
+
+
+    document.getElementById(
+        "net2"
+    ).textContent =
+        formatAr(net);
+
+
+
+    document.getElementById(
+        "resultat"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "resultat"
+    ).scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+
+/* =====================================
+   OUVRIR LE PAIEMENT FIVEONE
+   ===================================== */
+
+function ouvrirPaiement() {
+
+    window.open(
+        "https://pay.fiveonepay.com/link/plink_7fa08f7d5ce20fe8",
+        "_blank"
+    );
+
+}
+
+
+
+/* =====================================
+   EFFACER
+   ===================================== */
+
+function effacer() {
+
+    document.getElementById(
+        "salaire"
+    ).value = "";
+
+    document.getElementById(
+        "prime"
+    ).value = "";
+
+    document.getElementById(
+        "heures"
+    ).value = "";
+
+    document.getElementById(
+        "indemnites"
+    ).value = "";
+
+    document.getElementById(
+        "autres"
+    ).value = "";
+
+    document.getElementById(
+        "charges"
+    ).value = "0";
+
+    document.getElementById(
+        "resultat"
+    ).style.display =
+        "none";
+
+}
+
+
+
+/* =====================================
+   NOUVEAU CALCUL
+   ===================================== */
+
+function nouveauCalcul() {
+
+    effacer();
+
+    document.getElementById(
+        "salaire"
+    ).focus();
+
+}
+
+
+
+/* =====================================
+   TOUCHE ENTREE
+   ===================================== */
+
+document.querySelectorAll(
+    "input"
+).forEach(function(input) {
+
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                calculerSalaire();
+
+            }
+
+        }
+    );
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>
